@@ -1,0 +1,22 @@
+# One imagor for every site, e.g. a Ploi Docker app linked to a site that proxies to
+# 127.0.0.1:8000 (Ploi's nginx handles the domain and SSL). It fetches originals from their
+# public URLs, so it holds no storage keys; only signed URLs (IMAGOR_SECRET) are served.
+services:
+  imagor:
+    image: shumc/imagor:latest # pin to a version tag once it's working
+    container_name: imagor
+    restart: unless-stopped
+    environment:
+      PORT: "8000"
+      IMAGOR_SECRET: ${IMAGOR_SECRET}
+      HTTP_LOADER_HTTPS_ONLY: "1"
+      # Keep fetched originals for an hour so an image's other sizes don't download it again.
+      # Expired files are only ignored, not deleted: add a cron, e.g. hourly
+      #   find <app dir>/source -type f -mmin +60 -delete
+      FILE_STORAGE_BASE_DIR: /data/source
+      FILE_LOADER_BASE_DIR: /data/source
+      FILE_STORAGE_EXPIRATION: 1h
+    volumes:
+      - ./source:/data/source
+    ports:
+      - "127.0.0.1:8000:8000"
