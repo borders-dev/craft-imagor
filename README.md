@@ -7,7 +7,7 @@ Craft's transform index, file paths, storage and URLs don't change, and neither 
 ## Install
 
 ```bash
-composer require bwd/craft-imagor
+composer require borders-dev/craft-imagor
 php craft plugin/install imagor
 ```
 

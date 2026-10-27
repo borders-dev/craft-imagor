@@ -1,5 +1,5 @@
 {
-  "name": "bwd/craft-imagor",
+  "name": "borders-dev/craft-imagor",
   "description": "Hands Craft's image transforms to imagor (libvips), so the site's server never downloads or resizes originals.",
   "type": "craft-plugin",
   "license": "MIT",
