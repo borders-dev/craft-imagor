@@ -12,11 +12,12 @@ php craft plugin/install imagor
 ```
 
 ```bash
+IMAGOR_ENABLED=true
 IMAGOR_URL=https://imagor.example.com
 IMAGOR_SECRET=…   # same as the imagor server
 ```
 
-Without `IMAGOR_URL`, the plugin does nothing and Craft transforms as usual.
+It's opt-in: unless `IMAGOR_ENABLED=true` and `IMAGOR_URL` is set, the plugin does nothing and Craft transforms as usual.
 
 ## Fallback
 

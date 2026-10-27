@@ -11,7 +11,13 @@ use craft\helpers\App;
  */
 class Settings extends Model
 {
-    /** imagor's base URL. Empty: the plugin is off and Craft transforms as usual. */
+    /**
+     * Opt-in switch: IMAGOR_ENABLED=true (with a URL) turns it on. Unset or false: Craft
+     * transforms as usual.
+     */
+    public bool|string $enabled = '$IMAGOR_ENABLED';
+
+    /** imagor's base URL */
     public string $url = '$IMAGOR_URL';
 
     /** IMAGOR_SECRET. Empty means unsigned (`unsafe`) URLs: local testing only. */
@@ -48,6 +54,6 @@ class Settings extends Model
 
     public function isEnabled(): bool
     {
-        return (bool)App::parseEnv($this->url);
+        return App::parseBooleanEnv($this->enabled) === true && (bool)App::parseEnv($this->url);
     }
 }
